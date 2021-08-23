@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import ProtectedRoute from 'Utils/ProtectedRoute';
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -31,6 +32,12 @@ function App() {
 			<Route exact path="/connect">
 				<div>Connect</div>
 			</Route>
+			<ProtectedRoute exact path="/trading">
+				<div>Trading</div>
+			</ProtectedRoute>
+			<Route path="/" exact component={() => {
+				return <Redirect to="/trading" />
+			}}/>
 		</Router>
 		</>
 	);
