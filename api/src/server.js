@@ -7,6 +7,7 @@ import env from 'dotenv';
 
 import authentication from '#Hooks/authentication';
 import depositRoutes from '#Routes/deposit';
+import ordersRoutes from '#Routes/orders';
 
 env.config();
 
@@ -27,6 +28,7 @@ server.register(authentication);
 
 // Init api routes
 server.register(depositRoutes);
+server.register(ordersRoutes);
 
 const start = async () => {
 
