@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import ProtectedRoute from 'Utils/ProtectedRoute';
 
+import Connect from 'Screens/Connect';
+
 const GlobalStyle = createGlobalStyle`
 	* {
 		margin: 0;
@@ -30,7 +32,7 @@ function App() {
 		<GlobalStyle />
 		<Router>
 			<Route exact path="/connect">
-				<div>Connect</div>
+				<Connect />
 			</Route>
 			<ProtectedRoute exact path="/trading">
 				<div>Trading</div>
