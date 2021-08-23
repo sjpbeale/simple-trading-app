@@ -8,6 +8,7 @@ import { Row, Col } from 'react-flexa';
 
 import { Title } from 'Elements/Layout';
 import PlaceOrder from 'Components/Trading/PlaceOrder';
+import DisplayOrders from 'Components/Trading/DisplayOrders';
 import Deposit from 'Components/Trading/Deposit';
 import DisplayDeposits from 'Components/Trading/DisplayDeposits';
 
@@ -88,6 +89,29 @@ const Trading = () => {
 		})();
 	}, [credentials]);
 
+	// Fetch orders on load
+	useEffect(() => {
+		(async () => {
+			try {
+
+				const orders = await apiGet('getOrders', {
+					auth: credentials,
+				});
+
+				if (!Array.isArray(orders)) {
+					throw new Error('Unexpected type orders response');
+				}
+
+				setOrders(orders);
+
+			} catch (err) {
+				// Display error fetching deposits
+				console.log(err);
+			}
+
+		})();
+	}, [credentials]);
+
 	return (
 		<>
 		<Title>TRADING</Title>
@@ -98,7 +122,9 @@ const Trading = () => {
 				/>
 			</Col>
 			<Col xs={12} md={8} lg={6}>
-				<div>Display Orders</div>
+				<DisplayOrders
+					orders={orders}
+				/>
 			</Col>
 			<Col xs={12} md={12} lg={3}>
 				<Row>
