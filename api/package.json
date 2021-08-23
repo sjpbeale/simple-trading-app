@@ -5,6 +5,8 @@
   "main": "src/server.js",
   "type": "module",
   "imports": {
+    "#Routes/*": "./src/Routes/*.js",
+    "#Controllers/*": "./src/Controllers/*.js",
     "#Hooks/*": "./src/Hooks/*.js"
   },
   "scripts": {

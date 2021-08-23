@@ -6,6 +6,7 @@ import cors from 'fastify-cors';
 import env from 'dotenv';
 
 import authentication from '#Hooks/authentication';
+import depositRoutes from '#Routes/deposit';
 
 env.config();
 
@@ -23,6 +24,9 @@ server.register(cors);
 
 // Auth for all requests
 server.register(authentication);
+
+// Init api routes
+server.register(depositRoutes);
 
 const start = async () => {
 
