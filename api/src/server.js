@@ -13,11 +13,7 @@ env.config();
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || '0.0.0.0';
 
-const server = fastify({
-	logger: {
-		prettyPrint: true,
-	}
-});
+const server = fastify();
 
 // Cors for all requests
 server.register(cors);
