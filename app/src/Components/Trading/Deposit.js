@@ -1,10 +1,11 @@
 /**
  * Deposit Component
  */
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Section, SectionTitle, Flex } from 'Elements/Layout';
 import { Input, Select } from 'Elements/Inputs';
 import { Button } from 'Elements/Buttons';
+import { isPositiveNumber } from 'Utils/Validation';
 
 const Deposit = ({ sendDeposit }) => {
 
@@ -13,12 +14,32 @@ const Deposit = ({ sendDeposit }) => {
 	const [amount, setAmount] = useState(0);
 	const [token, setToken] = useState('ETH');
 
+	const amountInput = useRef(null);
+
 	const handleChange = (event) => {
 		if (event.target.name === 'amount') {
+
+			// Highlight invalid input
+			if (!isPositiveNumber(event.target.value)) {
+				event.target.classList.add('error');
+			} else {
+				event.target.classList.remove('error');
+			}
+
 			setAmount(event.target.value);
 		} else {
 			setToken(event.target.value);
 		}
+	};
+
+	const handleDeposit = async () => {
+
+		if (!isPositiveNumber(amount)) {
+			amountInput.current.classList.add('error');
+			amountInput.current.focus();
+			return;
+		}
+
 	};
 
 	return (
@@ -32,6 +53,7 @@ const Deposit = ({ sendDeposit }) => {
 					type="text"
 					value={amount}
 					onChange={handleChange}
+					ref={amountInput}
 				/>
 				<Select
 					name="token"
@@ -45,6 +67,7 @@ const Deposit = ({ sendDeposit }) => {
 				</Select>
 
 				<Button
+					onClick={handleDeposit}
 					disabled={!depositEnabled}
 					margin="0 0 0 10px"
 				>
