@@ -64,6 +64,26 @@ const Trading = () => {
 			throw order;
 		}
 
+		let orders = await apiGet('getOrders', {
+			auth: credentials,
+		});
+
+		orders = orders.map((item) => {
+			if (item.id === order.orderId) {
+				item.new = true;
+			}
+			return item;
+		});
+
+		setOrders(orders);
+
+		setTimeout(() => {
+			setOrders(orders.map((item) => {
+				delete item.new;
+				return item;
+			}));
+		}, 1000);
+
 		return order;
 	};
 
