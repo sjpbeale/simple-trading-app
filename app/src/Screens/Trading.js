@@ -3,6 +3,7 @@
  */
 import { useState, useEffect } from 'react';
 import { useAuth } from 'Auth/AuthContext';
+import { apiGet, apiPost } from 'Utils/apiFetch';
 import { Row, Col } from 'react-flexa';
 
 import { Title } from 'Elements/Layout';
@@ -14,6 +15,28 @@ const Trading = () => {
 
 	const [orders, setOrders] = useState([]);
 	const [deposits, setDeposits] = useState([]);
+
+	// Fetch deposits on load
+	useEffect(() => {
+		(async () => {
+			try {
+
+				const deposits = await apiGet('getBalances', {
+					auth: credentials,
+				});
+
+				if (!Array.isArray(deposits)) {
+					throw new Error('Unexpected type deposits response');
+				}
+
+				setDeposits(deposits);
+
+			} catch (err) {
+				// Display error fetching deposits
+				console.log(err);
+			}
+		})();
+	}, [credentials]);
 
 	return (
 		<>

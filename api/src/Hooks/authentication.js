@@ -29,7 +29,41 @@ const authentication = async (fastify, opts, next) => {
 
 	await fastify.register(auth);
 
-	// Check Signature from Auth Data in Body
+	// Check Signature from Auth Header (GET)
+	fastify.decorate('authHeader', async (request, reply, done) => {
+
+		const { authorization } = request.headers;
+
+		if (!authorization) {
+			throw new Error('Missing Auth Header');
+		}
+
+		try {
+
+			const buffer = new Buffer(authorization, 'base64');
+			const auth = buffer.toString('utf8');
+
+			const { signature, address } = JSON.parse(auth);
+
+			if (!signature || !address) {
+				throw new Error('Missing Auth');
+			}
+
+			if (address !== addressFromSignature(signature)) {
+				throw new Error('Invalid Auth');
+			}
+
+			// Inject address
+			request.walletAddress = address;
+
+			done();
+
+		} catch (err) {
+
+		}
+	});
+
+	// Check Signature from Auth Data in Body (POST)
 	fastify.decorate('authBody', async (request, reply, done) => {
 
 		if (!request.body || !request.body.auth) {
@@ -56,6 +90,7 @@ const authentication = async (fastify, opts, next) => {
 	});
 
 	fastify.addHook('preHandler', fastify.auth([
+		fastify.authHeader,
 		fastify.authBody,
 	]));
 
