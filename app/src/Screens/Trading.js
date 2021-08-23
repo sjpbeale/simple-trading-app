@@ -87,6 +87,29 @@ const Trading = () => {
 		return order;
 	};
 
+	const cancelOrder = async (data) => {
+		try {
+
+			await apiPost('cancelOrder', {
+				id: data,
+				auth: credentials,
+			});
+
+			const orders = await apiGet('getOrders', {
+				auth: credentials,
+			});
+
+			if (!Array.isArray(orders)) {
+				throw new Error('Unexpected type orders response');
+			}
+
+			setOrders(orders);
+
+		} catch (err) {
+
+		}
+	};
+
 	// Fetch deposits on load
 	useEffect(() => {
 		(async () => {
@@ -144,6 +167,7 @@ const Trading = () => {
 			<Col xs={12} md={8} lg={6}>
 				<DisplayOrders
 					orders={orders}
+					cancelOrder={cancelOrder}
 				/>
 			</Col>
 			<Col xs={12} md={12} lg={3}>
