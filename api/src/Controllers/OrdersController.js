@@ -1,6 +1,7 @@
 /**
  * Orders Controller
  */
+import DepositController from '#Controllers/DepositController';
 
 // Simple in memory store - normally would be db (mongo etc)
 const ordersStore = {};
@@ -45,6 +46,25 @@ class OrdersController {
 
 			if (!['ETH', 'USDT', 'DVF'].includes(token)) {
 				throw new Error(`Invalid token: ${token}`);
+			}
+
+			// Check deposits for specified token
+			const deposits = await DepositController.list(address);
+
+			const depositsTotal = deposits.reduce((acc, curr) => {
+				return curr.token === token ? acc + curr.amount : acc;
+			}, 0);
+
+			// Check orders for specified token
+			const orders = await OrdersController.list(address);
+
+			const ordersTotal = orders.reduce((acc, curr) => {
+				return curr.token === token ? acc + curr.amount : acc;
+			}, 0);
+
+			// Check deposited funds vs placed orders + new order
+			if ((ordersTotal + amount) > depositsTotal) {
+				throw new Error(`Insufficient funds (${token})`);
 			}
 
 			// Makeshift id since we are not saving to DB
