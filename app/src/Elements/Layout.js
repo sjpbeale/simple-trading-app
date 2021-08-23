@@ -29,3 +29,41 @@ export const SectionTitle = styled(Flex)`
 	margin: -10px -8px 14px;
 	font-weight: bold;
 `;
+
+export const Table = styled.table`
+	width: 100%;
+	border-collapse: collapse;
+
+	th {
+		padding: 0 10px;
+		font-size: 0.9em;
+		text-align: left;
+		color: rgb(176, 192, 224);
+	}
+
+	th:last-child,
+	td:last-child {
+		text-align: right;
+	}
+
+	tbody tr {
+
+		td {
+			padding: 2px 10px;
+			transition: background 0.3s ease-out 0s;
+			font-size: 0.9em;
+		}
+
+		&:nth-of-type(odd) td {
+			background-color: rgba(100, 160, 220, 0.1);
+		}
+
+		&:hover td {
+			background-color: rgba(255, 255, 255, 0.3);
+		}
+
+		&.new td {
+			background-color: rgba(255, 255, 255, 0.3);
+		}
+	}
+`;

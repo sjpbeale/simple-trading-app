@@ -8,6 +8,7 @@ import { Row, Col } from 'react-flexa';
 
 import { Title } from 'Elements/Layout';
 import Deposit from 'Components/Trading/Deposit';
+import DisplayDeposits from 'Components/Trading/DisplayDeposits';
 
 const Trading = () => {
 
@@ -72,7 +73,9 @@ const Trading = () => {
 						/>
 					</Col>
 					<Col xs={12} md={8} lg={12}>
-						<div>Display Deposits</div>
+						<DisplayDeposits
+							deposits={deposits}
+						/>
 					</Col>
 				</Row>
 			</Col>
