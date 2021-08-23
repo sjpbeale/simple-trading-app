@@ -7,6 +7,7 @@ import { apiGet, apiPost } from 'Utils/apiFetch';
 import { Row, Col } from 'react-flexa';
 
 import { Title } from 'Elements/Layout';
+import Deposit from 'Components/Trading/Deposit';
 
 const Trading = () => {
 
@@ -51,7 +52,7 @@ const Trading = () => {
 			<Col xs={12} md={12} lg={3}>
 				<Row>
 					<Col xs={12} md={4} lg={12}>
-						<div>Deposit</div>
+						<Deposit />
 					</Col>
 					<Col xs={12} md={8} lg={12}>
 						<div>Display Deposits</div>
