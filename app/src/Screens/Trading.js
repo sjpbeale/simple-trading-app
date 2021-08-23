@@ -30,6 +30,24 @@ const Trading = () => {
 			throw new Error(`${status.error}: ${status.message}`);
 		}
 
+		let deposits = await apiGet('getBalances', {
+			auth: credentials,
+		});
+
+		if (deposits.length) {
+
+			deposits[0].new = true;
+
+			setDeposits(deposits);
+
+			setTimeout(() => {
+				setDeposits(deposits.map((item) => {
+					delete item.new;
+					return item;
+				}));
+			}, 1000);
+		}
+
 		return status;
 	};
 
