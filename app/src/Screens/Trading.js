@@ -17,6 +17,21 @@ const Trading = () => {
 	const [orders, setOrders] = useState([]);
 	const [deposits, setDeposits] = useState([]);
 
+	const sendDeposit = async (token, amount) => {
+
+		const status = await apiPost('deposit', {
+			token,
+			amount,
+			auth: credentials
+		});
+
+		if (status.error) {
+			throw new Error(`${status.error}: ${status.message}`);
+		}
+
+		return status;
+	};
+
 	// Fetch deposits on load
 	useEffect(() => {
 		(async () => {
@@ -52,7 +67,9 @@ const Trading = () => {
 			<Col xs={12} md={12} lg={3}>
 				<Row>
 					<Col xs={12} md={4} lg={12}>
-						<Deposit />
+						<Deposit
+							sendDeposit={sendDeposit}
+						/>
 					</Col>
 					<Col xs={12} md={8} lg={12}>
 						<div>Display Deposits</div>

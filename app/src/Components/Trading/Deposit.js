@@ -2,7 +2,7 @@
  * Deposit Component
  */
 import { useState, useRef } from 'react';
-import { Section, SectionTitle, Flex } from 'Elements/Layout';
+import { Section, SectionTitle, Flex, StatusMessage } from 'Elements/Layout';
 import { Input, Select } from 'Elements/Inputs';
 import { Button } from 'Elements/Buttons';
 import { isPositiveNumber } from 'Utils/Validation';
@@ -10,6 +10,10 @@ import { isPositiveNumber } from 'Utils/Validation';
 const Deposit = ({ sendDeposit }) => {
 
 	const [depositEnabled, setDepositEnabled] = useState(true);
+	const [depositStatus, setDepositStatus] = useState({
+		status: '',
+		message: '',
+	});
 
 	const [amount, setAmount] = useState(0);
 	const [token, setToken] = useState('ETH');
@@ -40,6 +44,28 @@ const Deposit = ({ sendDeposit }) => {
 			return;
 		}
 
+		try {
+			setDepositEnabled(false);
+			setDepositStatus({status: '', message: ''});
+
+			await sendDeposit(token, amount);
+
+			setAmount(0);
+			setTimeout(() => {
+				setDepositEnabled(true);
+			}, 1200);
+
+		} catch (err) {
+
+			// Show error
+			setDepositStatus({
+				status: 'error',
+				message: 'Error depositing, please try again.',
+			});
+
+			// Enable deposit to try again
+			setDepositEnabled(true);
+		}
 	};
 
 	return (
@@ -74,6 +100,12 @@ const Deposit = ({ sendDeposit }) => {
 					Deposit
 				</Button>
 			</Flex>
+
+			{depositStatus.status ? (
+				<StatusMessage status={depositStatus.status}>
+					{depositStatus.message}
+				</StatusMessage>
+			): null}
 
 		</Section>
 	);
