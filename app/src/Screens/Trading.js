@@ -7,6 +7,7 @@ import { apiGet, apiPost } from 'Utils/apiFetch';
 import { Row, Col } from 'react-flexa';
 
 import { Title } from 'Elements/Layout';
+import PlaceOrder from 'Components/Trading/PlaceOrder';
 import Deposit from 'Components/Trading/Deposit';
 import DisplayDeposits from 'Components/Trading/DisplayDeposits';
 
@@ -51,6 +52,20 @@ const Trading = () => {
 		return status;
 	};
 
+	const sendOrder = async (data) => {
+
+		const order = await apiPost('placeOrder', {
+			...data,
+			auth: credentials
+		});
+
+		if (order.error) {
+			throw order;
+		}
+
+		return order;
+	};
+
 	// Fetch deposits on load
 	useEffect(() => {
 		(async () => {
@@ -78,7 +93,9 @@ const Trading = () => {
 		<Title>TRADING</Title>
 		<Row>
 			<Col xs={12} md={4} lg={3}>
-				<div>Place Order</div>
+				<PlaceOrder
+					sendOrder={sendOrder}
+				/>
 			</Col>
 			<Col xs={12} md={8} lg={6}>
 				<div>Display Orders</div>

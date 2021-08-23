@@ -30,6 +30,12 @@ export const SectionTitle = styled(Flex)`
 	font-weight: bold;
 `;
 
+export const StatusMessage = styled.div`
+	color: ${(props) => props.status === 'error' ? 'orange' : 'limegreen'};
+	font-size: 0.9em;
+	margin-top: 5px;
+`;
+
 export const Table = styled.table`
 	width: 100%;
 	border-collapse: collapse;

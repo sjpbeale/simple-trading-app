@@ -13,6 +13,10 @@ export const Button = styled.button`
 	transition: background 0.3s linear 0s;
 	cursor: pointer;
 
+	& + & {
+		margin-left: 10px;
+	}
+
 	&:hover {
 		background: rgba(85, 0, 252, 0.8);
 	}
@@ -21,5 +25,25 @@ export const Button = styled.button`
 		background: lightslategrey;
 		opacity: 0.7;
 		pointer-events: none;
+	}
+`;
+
+export const BuyButton = styled(Button)`
+	flex: 1;
+	background: rgb(89, 210, 169);
+	margin-top: 10px;
+
+	&:hover {
+		background: rgba(89, 210, 169, 0.8);
+	}
+`;
+
+export const SellButton = styled(Button)`
+	flex: 1;
+	background: rgb(238, 95, 95);
+	margin-top: 10px;
+
+	&:hover {
+		background: rgba(238, 95, 95, 0.8);
 	}
 `;

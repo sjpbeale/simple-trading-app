@@ -55,6 +55,14 @@ const SelectElement = styled.select`
 	background: rgb(25, 31, 48);
 `;
 
+export const TitleSelect = styled.select`
+	border: none;
+	border-radius: 4px;
+	color: rgb(255, 255, 255);
+	background: rgb(25, 31, 48);
+	padding: 3px;
+`;
+
 export const Select = (props) => {
 
 	const { label, children, ...rest } = props;
