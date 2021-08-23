@@ -22,14 +22,12 @@ const PlaceOrder = ({ sendOrder }) => {
 		message: '',
 	});
 
-	const [token, setToken] = useState('ETH/USDT');
+	const [token, setToken] = useState('ETH');
 	const [amount, setAmount] = useState(0);
 	const [price, setPrice] = useState(1000);
 
 	const amountInput = useRef(null);
 	const priceInput = useRef(null);
-
-	const [amountToken, priceToken] = token.split('/');
 
 	const handleChange = (event) => {
 
@@ -79,7 +77,7 @@ const PlaceOrder = ({ sendOrder }) => {
 				side,
 				amount,
 				price,
-				token: amountToken,
+				token,
 			});
 
 			setTimeout(() => {
@@ -111,15 +109,16 @@ const PlaceOrder = ({ sendOrder }) => {
 					onChange={handleChange}
 					value={token}
 				>
-					<option>ETH/USDT</option>
-					<option>DVF/USDT</option>
+					<option>ETH</option>
+					<option>USDT</option>
+					<option>DVF</option>
 				</TitleSelect>
 			</PlaceOrderTitle>
 
 			<Flex>
 				<Input
 					name="amount"
-					label={`Amount ${amountToken}`}
+					label={`Amount ${token}`}
 					type="text"
 					value={amount}
 					onChange={handleChange}
@@ -127,7 +126,7 @@ const PlaceOrder = ({ sendOrder }) => {
 				/>
 				<Input
 					name="price"
-					label={`Price ${priceToken}`}
+					label="Price"
 					type="text"
 					value={price}
 					onChange={handleChange}
@@ -140,13 +139,13 @@ const PlaceOrder = ({ sendOrder }) => {
 					onClick={() => handleOrder('buy')}
 					disabled={!orderEnabled}
 				>
-					{`Buy ${amountToken}`}
+					{`Buy ${token}`}
 				</BuyButton>
 				<SellButton
 					onClick={() => handleOrder('sell')}
 					disabled={!orderEnabled}
 				>
-					{`Sell ${amountToken}`}
+					{`Sell ${token}`}
 				</SellButton>
 			</Flex>
 
