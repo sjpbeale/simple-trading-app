@@ -1,6 +1,7 @@
 /**
  * Orders Routes
  */
+import authentication from '#Hooks/authentication';
 import OrdersController from '#Controllers/OrdersController';
 
 // Place Order Options
@@ -33,6 +34,9 @@ const cancelOptions = {
 };
 
 const ordersRoutes = async (fastify, options) => {
+
+	// Authenticate order routes
+	fastify.register(authentication);
 
 	let walletAddress = null;
 

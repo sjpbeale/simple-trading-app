@@ -1,6 +1,7 @@
 /**
  * Deposit Routes
  */
+import authentication from '#Hooks/authentication';
 import DepositController from '#Controllers/DepositController';
 
 // Deposit Options
@@ -18,6 +19,9 @@ const depositOptions = {
 };
 
 const depositRoutes = async (fastify, options) => {
+
+	// Authenticate deposit routes
+	fastify.register(authentication);
 
 	let walletAddress = null;
 

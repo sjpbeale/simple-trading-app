@@ -5,7 +5,6 @@ import fastify from 'fastify';
 import cors from 'fastify-cors';
 import env from 'dotenv';
 
-import authentication from '#Hooks/authentication';
 import depositRoutes from '#Routes/deposit';
 import ordersRoutes from '#Routes/orders';
 
@@ -22,9 +21,6 @@ const server = fastify({
 
 // Cors for all requests
 server.register(cors);
-
-// Auth for all requests
-server.register(authentication);
 
 // Init api routes
 server.register(depositRoutes);
