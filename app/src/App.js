@@ -1,8 +1,20 @@
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import ProtectedRoute from 'Utils/ProtectedRoute';
 
 import Connect from 'Screens/Connect';
+import Trading from 'Screens/Trading';
+
+const customTheme = {
+	flexa: {
+		gutter: {
+			xs: '8px',
+			sm: '8px',
+			md: '8px',
+			lg: '10px',
+		}
+	}
+};
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -28,20 +40,20 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
 	return (
-		<>
-		<GlobalStyle />
-		<Router>
-			<Route exact path="/connect">
-				<Connect />
-			</Route>
-			<ProtectedRoute exact path="/trading">
-				<div>Trading</div>
-			</ProtectedRoute>
-			<Route path="/" exact component={() => {
-				return <Redirect to="/trading" />
-			}}/>
-		</Router>
-		</>
+		<ThemeProvider theme={customTheme}>
+			<GlobalStyle />
+			<Router>
+				<Route exact path="/connect">
+					<Connect />
+				</Route>
+				<ProtectedRoute exact path="/trading">
+					<Trading />
+				</ProtectedRoute>
+				<Route path="/" exact component={() => {
+					return <Redirect to="/trading" />
+				}}/>
+			</Router>
+		</ThemeProvider>
 	);
 }
 
