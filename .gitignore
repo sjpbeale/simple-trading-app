@@ -7,4 +7,7 @@
 # production
 /app/build
 
+# environment
+.env
+
 **/npm-debug.log*

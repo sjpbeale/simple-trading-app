@@ -1,7 +1,7 @@
 /**
  * Api Fetch Util
  */
-const apiUrl = 'http://localhost:5000';
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const callAPI = (uri, data = {}, method = 'GET') => {
 
