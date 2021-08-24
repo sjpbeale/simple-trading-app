@@ -10,7 +10,7 @@
     "#Hooks/*": "./src/Hooks/*.js"
   },
   "scripts": {
-    "test": "tap --reporter=list --watch",
+    "test": "tap --reporter=list",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },

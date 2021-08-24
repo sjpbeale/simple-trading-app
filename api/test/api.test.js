@@ -15,7 +15,7 @@ test('Checking root of routes', async t => {
 });
 
 // Confirm 400 on missing data
-test('Checking auth only uri', async t => {
+test('Checking valid uri with missing data', async t => {
 
 	const api = build();
 
