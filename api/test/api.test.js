@@ -1,6 +1,7 @@
 import { test } from 'tap';
 import build from '../src/api.js';
 
+// Confirm 404 on root of api
 test('Checking root of routes', async t => {
 
 	const api = build();
@@ -10,9 +11,26 @@ test('Checking root of routes', async t => {
 		url: '/',
 	});
 
-	t.equal(response.statusCode, 404, 'Returns expected 404 code')
+	t.equal(response.statusCode, 404, 'returns expected 404 code')
 });
 
+// Confirm 400 on missing data
+test('Checking auth only uri', async t => {
+
+	const api = build();
+
+	const response = await api.inject({
+		method: 'POST',
+		url: '/deposit',
+		payload: {
+			amount: 20,
+		}
+	});
+
+	t.equal(response.statusCode, 400, 'returns expected 400 bad request');
+});
+
+// Confirm 401 on protected uri
 test('Checking auth only uri', async t => {
 
 	const api = build();
@@ -26,7 +44,5 @@ test('Checking auth only uri', async t => {
 		}
 	});
 
-	t.equal(response.statusCode, 401, 'Returns expected 401 not authorised');
+	t.equal(response.statusCode, 401, 'returns expected 401 not authorised');
 });
-
-test();
