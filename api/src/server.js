@@ -1,26 +1,15 @@
 /**
- * Simple Trading server
+ * API Server
  */
-import fastify from 'fastify';
-import cors from 'fastify-cors';
 import env from 'dotenv';
-
-import depositRoutes from '#Routes/deposit';
-import ordersRoutes from '#Routes/orders';
+import api from './api.js';
 
 env.config();
 
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST || '0.0.0.0';
 
-const server = fastify();
-
-// Cors for all requests
-server.register(cors);
-
-// Init api routes
-server.register(depositRoutes);
-server.register(ordersRoutes);
+const server = api();
 
 const start = async () => {
 

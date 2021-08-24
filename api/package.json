@@ -10,7 +10,7 @@
     "#Hooks/*": "./src/Hooks/*.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tap --reporter=list --watch",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
@@ -25,6 +25,8 @@
     "pino-pretty": "^5.1.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6",
+    "tap": "^15.0.9"
   }
 }
